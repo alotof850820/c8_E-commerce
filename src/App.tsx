@@ -1,16 +1,14 @@
-import RouterComponent from "@/router";
+import RouterView from "@/router";
 import "./app.scss";
+import TopBar from "./components/TopBar";
 
-
-function App() {
-
-
+const App: React.FC = () => {
   return (
     <>
-      <header></header>
-      <RouterComponent />
+      <TopBar num={1} />
+      <RouterView />
     </>
   );
-}
+};
 
 export default App;
