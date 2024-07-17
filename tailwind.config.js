@@ -6,6 +6,8 @@ export default {
       colors: {
         "custom-gray-100": "#c3cfdb", // 淺
         "custom-gray-200": "#666666", // 深
+        "custom-gray-300": "#333", // 超深
+
       },
       fontFamily: {
         sans: ["Helvetica", "Arial", "sans-serif"],
