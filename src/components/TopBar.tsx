@@ -1,7 +1,8 @@
 import { Icon } from "@iconify/react";
 import { FC, useEffect, useState } from "react";
-import "./topbar.scss";
 import { TopBarProps } from "./types/topbar";
+import DropDown from "./DropDown";
+import useDropdown from "@/utils/useDropdown";
 
 const TopBar: FC<TopBarProps> = ({ num }) => {
   const [number, setNumber] = useState(num);
@@ -25,8 +26,8 @@ const TopBar: FC<TopBarProps> = ({ num }) => {
   }, []);
 
   return (
-    <div className="fixed inset-0 w-full overflow-hidden h-24 bg-white flex flex-col items-center font-bold text-black shadow-[0_2px_12px_0_rgba(0,0,0,0.1)] box-border text-[24px] z-[999]">
-      <div className=" text-custom-gray-200 w-full relative bg-custom-gray-100  min-h-[24%]">
+    <div className="fixed top-0 w-full overflow-hidden bg-white flex flex-col items-center font-bold text-black shadow-[0_2px_12px_0_rgba(0,0,0,0.1)] box-border text-[24px] z-[999]">
+      <div className=" text-custom-gray-200 w-full relative bg-custom-gray-100  max-h-6">
         {texts.map((text, index) => (
           <div
             key={index}
@@ -41,26 +42,54 @@ const TopBar: FC<TopBarProps> = ({ num }) => {
           </div>
         ))}
       </div>
-      <div className="min-h-[38%] px-2 font-normal text-custom-gray-300 text-base z-[1001] bg-white flex justify-between w-full items-center">
+      <div className="py-2 px-2 font-normal text-custom-gray-300 text-base z-[1001] bg-white flex justify-between w-full items-center">
         <div className="text-[0.5rem] flex items-center gap-2">
-          <div className="flex items-center justify-center gap-[0.1rem]">
-            <Icon icon="material-symbols:attach-money" />
-            <span>TWD</span>
-            <Icon icon="pepicons-pencil:angle-down" />
-          </div>
-          <div className="flex items-center justify-center gap-[0.1rem]">
-            <Icon icon="icon-park-outline:earth" />
-            <span>繁體中文</span>
-            <Icon icon="pepicons-pencil:angle-down" />
-          </div>
+          {[0, 1].map((_, index) => {
+            const { dropdowns, handleMouseEnter, handleMouseLeave } =
+              useDropdown(2, `trigger${index}`);
+            const { isOpen, position } = dropdowns[index];
+
+            return (
+              <div
+                key={index}
+                id={`dropdown${index}`}
+                onMouseEnter={() => handleMouseEnter(index)}
+                onMouseLeave={() => handleMouseLeave(index)}
+              >
+                <div
+                  id={`trigger${index}`}
+                  className="flex items-center justify-center gap-[0.1rem]"
+                >
+                  <Icon icon="material-symbols:attach-money" />
+                  <span>TWD</span>
+                  <Icon icon="pepicons-pencil:angle-down" />
+                </div>
+                {isOpen && (
+                  <DropDown
+                    className="text-black bg-white"
+                    id={`dropdown${index}`}
+                    position={position}
+                  />
+                )}
+              </div>
+            );
+          })}
+
+          {/* <div>
+            <div className="flex items-center justify-center gap-[0.1rem]">
+              <Icon icon="icon-park-outline:earth" />
+              <span>繁體中文</span>
+              <Icon icon="pepicons-pencil:angle-down" />
+            </div>
+          </div> */}
         </div>
         <div className="center">C=8</div>
 
         <div className="text-[0.75rem] flex items-center gap-2">
-          <Icon icon="bi:chat" />
-          <Icon className="text-[1rem] " icon="bitcoin-icons:search-outline" />
-          <Icon icon="solar:user-linear" />
-          <div className="relative" onClick={() => setNumber(number + 1)}>
+          <Icon className="cursor-pointer" icon="bi:chat" />
+          <Icon className="text-[1rem] cursor-pointer" icon="bitcoin-icons:search-outline" />
+          <Icon className="cursor-pointer" icon="solar:user-linear" />
+          <div className="relative cursor-pointer" onClick={() => setNumber(number + 1)}>
             <Icon className="text-[1rem] " icon="bi:cart" />
             <span className="absolute top-[-0.27rem] right-1.5 text-[0.4rem] text-red-400">
               {number}
@@ -68,77 +97,33 @@ const TopBar: FC<TopBarProps> = ({ num }) => {
           </div>
         </div>
       </div>
-      <div className=" min-h-[38%] h-auto px-2 font-normal text-custom-gray-300 text-base z-[1001] bg-custom-gray-100 flex justify-center w-full items-center">
-        <div className="px-10 text-white text-[0.6rem] flex justify-center items-center gap-3 flex-wrap">
-          {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((_, index) => {
-            const [isOpen, setIsOpen] = useState(false);
+      <div className="z-[1] py-2 font-normal text-custom-gray-300 text-base bg-custom-gray-100 flex justify-center w-full items-center">
+        <div className=" text-white text-[0.6rem] flex justify-center items-center gap-3 flex-wrap">
+          {[0, 1, 2, 3, 4, 5, 6, 7, 8].map((_, index) => {
+            const { dropdowns, handleMouseEnter, handleMouseLeave } =
+              useDropdown(10, `trigger2${index}`);
+            const { isOpen, position } = dropdowns[index];
+
             return (
               <div
                 key={index}
-                className="relative inline-block"
-                onMouseEnter={() => setIsOpen(true)}
-                onMouseLeave={() => setIsOpen(false)}
+                id={`dropdown2${index}`}
+                onMouseEnter={() => handleMouseEnter(index)}
+                onMouseLeave={() => handleMouseLeave(index)}
               >
-                <div className="flex items-center justify-center gap-[0.1rem] group">
+                <div
+                  id={`trigger2${index}`}
+                  className="flex items-center justify-center gap-[0.1rem] cursor-pointer"
+                >
                   <span>最新消息</span>
                   <Icon icon="pepicons-pencil:angle-down" />
                 </div>
-                <div
-                  style={{
-                    top: '11.5%',
-                    left: `${index * 10}%`,
-                    display: isOpen ? "block" : "none",
-                  }}
-                  className="fixed left-0 mt-2 w-48 bg-custom-gray-100 borderrounded-md shadow-lg group-hover:block"
-                >
-                  <ul className="py-1">
-                    <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                      选项1
-                    </li>
-                    <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                      选项2
-                    </li>
-                    <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                      选项3
-                    </li>
-                  </ul>
-                </div>
+                {isOpen && (
+                  <DropDown id={`dropdown2${index}`} position={position} />
+                )}
               </div>
             );
           })}
-
-          {/* <div className="flex items-center justify-center gap-[0.1rem]">
-            <span>所有品牌</span>
-            <Icon icon="pepicons-pencil:angle-down" />
-          </div>
-          <div className="flex items-center justify-center gap-[0.1rem]">
-            <span>NIKE</span>
-            <Icon icon="pepicons-pencil:angle-down" />
-          </div>
-          <div className="flex items-center justify-center gap-[0.1rem]">
-            <span>NEW BALANCE</span>
-            <Icon icon="pepicons-pencil:angle-down" />
-          </div>
-          <div className="flex items-center justify-center gap-[0.1rem]">
-            <span>服飾配件</span>
-            <Icon icon="pepicons-pencil:angle-down" />
-          </div>
-          <div className="flex items-center justify-center gap-[0.1rem]">
-            <span>質感生活</span>
-            <Icon icon="pepicons-pencil:angle-down" />
-          </div>
-          <div className="flex items-center justify-center gap-[0.1rem]">
-            <span>香水香氣</span>
-            <Icon icon="pepicons-pencil:angle-down" />
-          </div>
-          <div className="flex items-center justify-center gap-[0.1rem]">
-            <span>零碼專區</span>
-            <Icon icon="pepicons-pencil:angle-down" />
-          </div>
-          <div className="flex items-center justify-center gap-[0.1rem]">
-            <span>關於C8</span>
-            <Icon icon="pepicons-pencil:angle-down" />
-          </div> */}
         </div>
       </div>
     </div>
