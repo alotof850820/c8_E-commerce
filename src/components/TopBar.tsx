@@ -113,7 +113,7 @@ const TopBar: FC<TopBarProps> = ({ num }) => {
             onClick={() => setNumber(number + 1)}
           >
             <Icon className="text-[1rem] " icon="bi:cart" />
-            <span className="absolute top-[-0.27rem] right-1.5 text-[0.4rem] text-red-400">
+            <span className="select-none absolute inset-0 flex items-center justify-center text-[0.4rem] text-red-400">
               {number}
             </span>
           </div>
