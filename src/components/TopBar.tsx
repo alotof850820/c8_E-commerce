@@ -26,7 +26,7 @@ const TopBar: FC<TopBarProps> = ({ num }) => {
   }, []);
 
   return (
-    <div className="fixed top-0 w-full overflow-hidden bg-white flex flex-col items-center font-bold text-black shadow-[0_2px_12px_0_rgba(0,0,0,0.1)] box-border text-[24px] z-[999]">
+    <div className=" fixed top-0 w-full overflow-hidden bg-white flex flex-col items-center font-bold text-black shadow-[0_2px_12px_0_rgba(0,0,0,0.1)] box-border text-[24px] z-[999]">
       <div className=" text-custom-gray-200 w-full relative bg-custom-gray-100  max-h-6">
         {texts.map((text, index) => (
           <div
@@ -42,7 +42,7 @@ const TopBar: FC<TopBarProps> = ({ num }) => {
           </div>
         ))}
       </div>
-      <div className="py-2 px-2 font-normal text-custom-gray-300 text-base z-[1001] bg-white flex justify-between w-full items-center">
+      <div className="relative py-1 px-2 font-normal text-custom-gray-300 text-base z-[1001] bg-white flex justify-between w-full items-center">
         <div className="text-[0.5rem] flex items-center gap-2">
           {[0, 1].map((_, index) => {
             const { dropdowns, handleMouseEnter, handleMouseLeave } =
@@ -83,13 +83,35 @@ const TopBar: FC<TopBarProps> = ({ num }) => {
             </div>
           </div> */}
         </div>
-        <div className="center">C=8</div>
+        <div className="z-[-1] absolute inset-0 flex items-center justify-center">
+          C=8
+        </div>
 
         <div className="text-[0.75rem] flex items-center gap-2">
-          <Icon className="cursor-pointer" icon="bi:chat" />
-          <Icon className="text-[1rem] cursor-pointer" icon="bitcoin-icons:search-outline" />
-          <Icon className="cursor-pointer" icon="solar:user-linear" />
-          <div className="relative cursor-pointer" onClick={() => setNumber(number + 1)}>
+          <Icon
+            className="cursor-pointer hover:text-custom-gray-100"
+            icon="bi:chat"
+          />
+          <div className="flex items-center">
+            <input
+              placeholder="搜尋"
+              className="border-b-[1px] border-solid border-black text-[0.52rem] text-custom-gray-300 outline-none"
+              type="text"
+            />
+            <Icon
+              className="text-[1rem] cursor-pointer hover:text-custom-gray-100"
+              icon="bitcoin-icons:search-outline"
+            />
+          </div>
+
+          <Icon
+            className="cursor-pointer hover:text-custom-gray-100"
+            icon="solar:user-linear"
+          />
+          <div
+            className="relative cursor-pointer hover:text-custom-gray-100"
+            onClick={() => setNumber(number + 1)}
+          >
             <Icon className="text-[1rem] " icon="bi:cart" />
             <span className="absolute top-[-0.27rem] right-1.5 text-[0.4rem] text-red-400">
               {number}
@@ -97,7 +119,7 @@ const TopBar: FC<TopBarProps> = ({ num }) => {
           </div>
         </div>
       </div>
-      <div className="z-[1] py-2 font-normal text-custom-gray-300 text-base bg-custom-gray-100 flex justify-center w-full items-center">
+      <div className="z-[1] py-1 font-normal text-custom-gray-300 text-base bg-custom-gray-100 flex justify-center w-full items-center">
         <div className=" text-white text-[0.6rem] flex justify-center items-center gap-3 flex-wrap">
           {[0, 1, 2, 3, 4, 5, 6, 7, 8].map((_, index) => {
             const { dropdowns, handleMouseEnter, handleMouseLeave } =

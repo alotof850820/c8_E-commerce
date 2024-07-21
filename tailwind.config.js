@@ -5,6 +5,7 @@ export default {
     extend: {
       colors: {
         "custom-gray-100": "#c3cfdb", // 淺
+        "custom-gray-150": "#898888", // 淺
         "custom-gray-200": "#666666", // 深
         "custom-gray-300": "#333", // 超深
 
