@@ -1,9 +1,11 @@
 import Carousel from "@/components/Carousel";
 import Item from "@/components/Item";
 import Footer from "@/components/Footer";
+import useRouter from "@/router/hook";
 // import Recommend from "@/components/Recommend";
 
 const Home = () => {
+  const { goRouter } = useRouter();
   const content = [
     "https://shoplineimg.com/553d27fae36c8e318500006e/653a410c67e09500171b6619/2160x.webp?source_format=jpg",
     "https://shoplineimg.com/553d27fae36c8e318500006e/6656aae18b60a80019dbf24b/2160x.webp?source_format=jpeg",
@@ -19,7 +21,10 @@ const Home = () => {
   ];
   return (
     <div className="w-full h-full xs:mt-[5.5rem] mt-[3.5rem] flex flex-col gap-3 items-center">
-      <div className="w-full cursor-pointer">
+      <div
+        onClick={goRouter("product")}
+        className="w-full cursor-pointer"
+      >
         <img
           className="w-full h-full object-contain"
           src="https://shoplineimg.com/553d27fae36c8e318500006e/668b9d96e938cbae591bfa56/2160x.webp?source_format=jpg"
