@@ -1,10 +1,12 @@
 import Carousel from "@/components/Carousel";
 import Item from "@/components/Item";
 import Footer from "@/components/Footer";
-import Recommend from "@/components/Recommend";
+// import Recommend from "@/components/Recommend";
 
 const Home = () => {
   const content = [
+    "https://shoplineimg.com/553d27fae36c8e318500006e/653a410c67e09500171b6619/2160x.webp?source_format=jpg",
+    "https://shoplineimg.com/553d27fae36c8e318500006e/6656aae18b60a80019dbf24b/2160x.webp?source_format=jpeg",
     "https://shoplineimg.com/553d27fae36c8e318500006e/653a410c67e09500171b6619/2160x.webp?source_format=jpg",
     "https://shoplineimg.com/553d27fae36c8e318500006e/6656aae18b60a80019dbf24b/2160x.webp?source_format=jpeg",
     "https://shoplineimg.com/553d27fae36c8e318500006e/653a410c67e09500171b6619/2160x.webp?source_format=jpg",
@@ -16,7 +18,7 @@ const Home = () => {
     "https://shoplineimg.com/553d27fae36c8e318500006e/6421381349864d001da47ac3/2160x.webp?source_format=jpg",
   ];
   return (
-    <div className="w-full h-full mt-[5.5rem] flex flex-col gap-3 items-center">
+    <div className="w-full h-full xs:mt-[5.5rem] mt-[3.5rem] flex flex-col gap-3 items-center">
       <div className="w-full cursor-pointer">
         <img
           className="w-full h-full object-contain"

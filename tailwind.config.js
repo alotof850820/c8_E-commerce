@@ -16,7 +16,7 @@ export default {
         mono: ["Courier", "monospace"],
       },
       screens: {
-        xs: "480px",
+        xs: "684px",
       },
     },
   },

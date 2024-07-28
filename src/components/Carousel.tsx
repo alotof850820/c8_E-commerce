@@ -1,7 +1,5 @@
 import { useState, useEffect, useRef } from "react";
 
-
-
 let intervalDuration = 3000;
 
 const Carousel = ({
@@ -16,23 +14,28 @@ const Carousel = ({
   const [currentIndex, setCurrentIndex] = useState(0);
   const imgRef = useRef(content.length);
   const margin = `0 ${(100 - widthNumber) / 2}vw`;
+  const intervalIdRef = useRef<number | null>(null);
 
   useEffect(() => {
     const c = document.getElementById(id);
 
-    const intervalId = setInterval(() => {
-      if (!c) return;
+    const updateCarousel = () => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % imgRef.current);
-
-      c.style.transform = `translateX(-${currentIndex * widthNumber}vw)`;
-      c.style.transition = currentIndex === 0 ? "none" : "transform 0.5s ease";
+      if (c) {
+        c.style.transform = `translateX(-${currentIndex * widthNumber}vw)`;
+        c.style.transition = currentIndex === 0 ? "none" : "transform 0.5s ease";
+      }
       intervalDuration = currentIndex === 0 ? 0 : 3000;
-    }, intervalDuration);
+    };
+
+    intervalIdRef.current = window.setTimeout(updateCarousel, intervalDuration);
 
     return () => {
-      clearInterval(intervalId);
+      if (intervalIdRef.current !== null) {
+        clearTimeout(intervalIdRef.current);
+      }
     };
-  }, [currentIndex]);
+  }, [currentIndex, id, widthNumber]);
 
   return (
     <div className={`overflow-hidden`} style={{ margin }}>
